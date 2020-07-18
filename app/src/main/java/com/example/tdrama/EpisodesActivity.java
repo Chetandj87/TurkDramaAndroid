@@ -23,6 +23,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class EpisodesActivity extends AppCompatActivity{
@@ -62,9 +63,7 @@ public class EpisodesActivity extends AppCompatActivity{
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         episodeList = new ArrayList<>();
-        adapter = new EpisodesAdapter(this, episodeList);
 
-        recyclerView.setAdapter(adapter);
 
         CollectionReference notesCollectionRef = db.collection("episodes");
 
@@ -86,6 +85,10 @@ public class EpisodesActivity extends AppCompatActivity{
                 }
             }
         });
+
+        adapter = new EpisodesAdapter(this, episodeList);
+
+        recyclerView.setAdapter(adapter);
 
 //        db.collection("episodes").whereEqualTo("dramaId",drama.getId()).get()
 //                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "183485541570",
+    "firebase_url": "https://turkdrama-bdaea.firebaseio.com",
+    "project_id": "turkdrama-bdaea",
+    "storage_bucket": "turkdrama-bdaea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:183485541570:android:006b006f652ca942ff9f5b",
+        "android_client_info": {
+          "package_name": "com.example.tdrama"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "183485541570-rkq8qc8l3hee0u13sdgjembaoptdferm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tdrama",
+            "certificate_hash": "877cea2848cfe78f102a8d5478d0e268def676d2"
+          }
+        },
+        {
+          "client_id": "183485541570-eaqagkk4l8h7ot4v3jidfdc21sfdp9fa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDe1Sh5qu7z2hYraLTDznywSa0Es9VuY1w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "183485541570-eaqagkk4l8h7ot4v3jidfdc21sfdp9fa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

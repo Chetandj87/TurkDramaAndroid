@@ -1,4 +1,4 @@
-package com.example.tdrama;
+package com.loveseries.tdrama;
 
 import android.content.Context;
 import android.content.Intent;

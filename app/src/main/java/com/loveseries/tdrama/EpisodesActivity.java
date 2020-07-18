@@ -1,4 +1,4 @@
-package com.example.tdrama;
+package com.loveseries.tdrama;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,11 +11,15 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -23,7 +27,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class EpisodesActivity extends AppCompatActivity{
@@ -37,6 +40,7 @@ public class EpisodesActivity extends AppCompatActivity{
 
     private FirebaseFirestore db;
 
+    private AdView mAdView;
     private Drama drama;
 
 
@@ -44,6 +48,22 @@ public class EpisodesActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_episodes);
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+        mAdView.setAdListener(new AdListener(){
+            @Override
+            public void onAdLoaded() {
+                recyclerView.setPadding(0,0,0,mAdView.getHeight());
+            }
+        });
 
         progressBar = findViewById(R.id.progressBar);
 
@@ -67,7 +87,8 @@ public class EpisodesActivity extends AppCompatActivity{
 
         CollectionReference notesCollectionRef = db.collection("episodes");
 
-        Query notesQuery = notesCollectionRef.whereEqualTo("dramaId",drama.getId());
+        Query notesQuery = notesCollectionRef.whereEqualTo("dramaId",drama.getId())
+                .orderBy("number",Query.Direction.ASCENDING);
 
         notesQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override

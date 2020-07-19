@@ -58,13 +58,6 @@ public class EpisodesActivity extends AppCompatActivity{
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
-        mAdView.setAdListener(new AdListener(){
-            @Override
-            public void onAdLoaded() {
-                recyclerView.setPadding(0,0,0,mAdView.getHeight());
-            }
-        });
-
         progressBar = findViewById(R.id.progressBar);
 
         db = FirebaseFirestore.getInstance();

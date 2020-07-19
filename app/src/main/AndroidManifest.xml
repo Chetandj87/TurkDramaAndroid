@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.loveseries.tdrama.WebActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name="com.loveseries.tdrama.ServerActivity" />
         <activity android:name="com.loveseries.tdrama.EpisodesActivity" />
         <!--

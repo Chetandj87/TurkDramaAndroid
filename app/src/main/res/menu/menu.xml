@@ -5,4 +5,8 @@
     <item android:id="@+id/contact_us"
         android:title="Contact us"
         app:showAsAction="never"/>
+
+    <item android:id="@+id/drama_demo"
+        android:title="New Drama View"
+        app:showAsAction="never"/>
 </menu>

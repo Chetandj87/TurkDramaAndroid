@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
@@ -22,7 +23,7 @@ public class WebActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setTitle("Exit");
-        builder.setMessage("Are you sure?");
+        builder.setMessage("Are you sure you want to exit?");
 
         builder.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
             @Override
@@ -52,18 +53,23 @@ public class WebActivity extends AppCompatActivity {
         webView = (WebView) findViewById(R.id.webServer);
         webView.setWebViewClient(new Browser_Home());
         webView.setWebChromeClient(new ChromeClient());
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.getSettings().setAllowFileAccess(true);
-        webView.getSettings().setAppCacheEnabled(true);
+        WebSettings webViewSettings = webView.getSettings();
+        webViewSettings.setJavaScriptEnabled(true);
+        webViewSettings.setAllowFileAccess(true);
+        webViewSettings.setAppCacheEnabled(true);
 
         loadWebSite(url);
-
-
     }
 
     private void loadWebSite(String url) {
         //String url = "<iframe src=\"https://hqq.tv/e/Ry9FSlVBZnBuYURJQitGL3ZudWY2Zz09\" height=\"100%\" width=\"100%\" webkitAllowFullScreen mozallowfullscreen allowfullscreen frameborder=\"0\" scrolling=\"no\"></iframe>";
-        String serverURL = "<iframe src=\""+url+"\" height=\"100%\" width=\"100%\" webkitAllowFullScreen mozallowfullscreen allowfullscreen frameborder=\"0\" scrolling=\"no\"></iframe>";
+        String serverURL="";
+
+        if(url.startsWith("https")){
+            serverURL = "<iframe src=\""+url+"\" height=\"95%\" width=\"100%\" webkitAllowFullScreen mozallowfullscreen allowfullscreen frameborder=\"0\" scrolling=\"no\"></iframe>";
+        }else {
+            serverURL = url;
+        }
 
         webView.loadData(serverURL,"text/html","utf-8");
     }

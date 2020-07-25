@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
@@ -37,10 +38,8 @@ public class EpisodesActivity extends AppCompatActivity{
     private List<Episode> episodeList;
     private TextView textView_name,textView_description;
     private ImageView imageView;
-
-    private FirebaseFirestore db;
-
     private AdView mAdView;
+    private FirebaseFirestore db;
     private Drama drama;
 
 
@@ -52,8 +51,10 @@ public class EpisodesActivity extends AppCompatActivity{
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
+
             }
         });
+
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);

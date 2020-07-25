@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -12,25 +13,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.loveseries.tdrama.WebActivity"
+        <activity
+            android:name=".WebActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name="com.loveseries.tdrama.ServerActivity" />
-        <activity android:name="com.loveseries.tdrama.EpisodesActivity" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".ServerActivity" />
+        <activity android:name=".EpisodesActivity" />
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
         -->
-
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-6499826538736000~6996097772"/>
-
+            android:value="ca-app-pub-6499826538736000~6996097772" />
         <meta-data
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
 
-        <activity android:name="com.loveseries.tdrama.MainActivity">
+        <activity android:name=".DramasActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
@@ -35,10 +37,15 @@ public class ServerActivity extends AppCompatActivity {
             }
         });
         mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-6499826538736000/5331839929");
+        final AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
-        prepareAD();
+        if (!mInterstitialAd.isLoading() && !mInterstitialAd.isLoaded()) {
+            AdRequest adRequest2 = new AdRequest.Builder().build();
+            mInterstitialAd.loadAd(adRequest2);
+        }
 
         episode = (Episode) getIntent().getSerializableExtra("episode");
 
@@ -46,39 +53,48 @@ public class ServerActivity extends AppCompatActivity {
         button_Server1 = (Button) findViewById(R.id.button_server1);
         button_Server2 = (Button) findViewById(R.id.button_server2);
 
-        textView_episodeNumber.setText("Episode "+episode.getNumber());
+        textView_episodeNumber.setText("Select Server for Episode "+episode.getNumber());
 
         button_Server1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mInterstitialAd.isLoaded()) {
+                if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
                     mInterstitialAd.show();
-                } else {
-                    Log.d("TAG", "The interstitial wasn't loaded yet.");
+                    mInterstitialAd.setAdListener(new AdListener(){
+                        @Override
+                        public void onAdClosed() {
+                            Intent intent = new Intent(getApplicationContext(), WebActivity.class);
+                            intent.putExtra("server", episode.getServer1());
+                            startActivity(intent);
+                        }
+                    });
+                }else {
+                    Intent intent = new Intent(getApplicationContext(), WebActivity.class);
+                    intent.putExtra("server", episode.getServer1());
+                    startActivity(intent);
                 }
-                Intent intent = new Intent(getApplicationContext(), WebActivity.class);
-                intent.putExtra("server", episode.getServer1());
-                startActivity(intent);
             }
         });
 
         button_Server2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), WebActivity.class);
-                intent.putExtra("server", episode.getServer2());
-                startActivity(intent);
+                if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                    mInterstitialAd.setAdListener(new AdListener(){
+                        @Override
+                        public void onAdClosed() {
+                            Intent intent = new Intent(getApplicationContext(), WebActivity.class);
+                            intent.putExtra("server", episode.getServer2());
+                            startActivity(intent);
+                        }
+                    });
+                }else {
+                    Intent intent = new Intent(getApplicationContext(), WebActivity.class);
+                    intent.putExtra("server", episode.getServer2());
+                    startActivity(intent);
+                }
             }
         });
-    }
-
-    public void prepareAD() {
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {}
-        });
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-6499826538736000/5331839929");
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }
 }

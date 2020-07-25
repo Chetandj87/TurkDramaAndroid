@@ -1,7 +1,5 @@
 package com.loveseries.tdrama;
 
-import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,49 +9,62 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
+import com.firebase.ui.firestore.paging.FirestorePagingOptions;
+import com.firebase.ui.firestore.paging.LoadingState;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
+public class DramasAdapter extends FirestorePagingAdapter<Drama, DramasAdapter.DramasViewHolder> {
 
-public class DramasAdapter extends RecyclerView.Adapter<DramasAdapter.DramaViewHolder> {
+    private OnDramaListClick onDramaListClick;
 
-    private Context mCtx;
-    private List<Drama> dramaList;
+    public DramasAdapter(@NonNull FirestorePagingOptions<Drama> options, OnDramaListClick onDramaListClick) {
+        super(options);
+        this.onDramaListClick=onDramaListClick;
+    }
 
-    public DramasAdapter(Context mCtx, List<Drama> dramaList){
-        this.mCtx=mCtx;
-        this.dramaList=dramaList;
+    @Override
+    protected void onBindViewHolder(@NonNull DramasViewHolder holder, int position, @NonNull Drama model) {
+        holder.dramaname.setText(model.getTitle());
+        if (!model.getImageURL().isEmpty()){
+            Picasso.get().load(model.getImageURL()).into(holder.imageView);
+        }
     }
 
     @NonNull
     @Override
-    public DramaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new DramaViewHolder(
-                LayoutInflater.from(mCtx).inflate(R.layout.layout_drama, parent, false)
-        );
+    public DramasViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_drama, parent, false);
+        return new DramasViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DramaViewHolder holder, int position) {
-        Drama drama = dramaList.get(position);
-
-        holder.textView_name.setText(drama.getTitle());
-        Picasso.get().load(drama.getImageURL()).into(holder.imageView);
+    protected void onLoadingStateChanged(@NonNull LoadingState state) {
+        super.onLoadingStateChanged(state);
+        switch (state){
+            case FINISHED:
+                break;
+            case LOADING_MORE:
+                break;
+            case LOADING_INITIAL:
+                break;
+            case ERROR:
+                break;
+            case LOADED:
+                break;
+        }
     }
 
-    @Override
-    public int getItemCount() {
-        return dramaList.size();
-    }
+    public class DramasViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    class DramaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView textView_name;
-        ImageView imageView;
+        private TextView dramaname;
+        private ImageView imageView;
 
-        public DramaViewHolder(View itemView){
+        public DramasViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            textView_name = itemView.findViewById(R.id.textView_name);
+            dramaname = itemView.findViewById(R.id.textView_dramaname);
             imageView = itemView.findViewById(R.id.imageView);
 
             itemView.setOnClickListener(this);
@@ -61,10 +72,11 @@ public class DramasAdapter extends RecyclerView.Adapter<DramasAdapter.DramaViewH
 
         @Override
         public void onClick(View v) {
-            Drama drama = dramaList.get(getAdapterPosition());
-            Intent intent = new Intent(mCtx, EpisodesActivity.class);
-            intent.putExtra("drama",drama);
-            mCtx.startActivity(intent);
+            onDramaListClick.onDramaClick(getItem(getAdapterPosition()), getAdapterPosition());
         }
+    }
+
+    public interface OnDramaListClick {
+        void onDramaClick(DocumentSnapshot snapshot, int position);
     }
 }

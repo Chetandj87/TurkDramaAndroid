@@ -37,4 +37,12 @@ dependencies {
     compileOnly 'com.google.android.wearable:wearable:2.5.0'
     implementation 'com.google.android.gms:play-services-ads:19.2.0'
 
+    //Paging Library
+    implementation 'android.arch.paging:runtime:2.1.1'
+
+    // FirebaseUI for Cloud Firestore
+    implementation 'com.firebaseui:firebase-ui-firestore:6.2.1'
+    // FirebaseUI for Cloud Storage
+    implementation 'com.firebaseui:firebase-ui-storage:6.2.1'
+
 }

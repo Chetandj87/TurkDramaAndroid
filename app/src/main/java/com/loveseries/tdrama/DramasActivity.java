@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -80,14 +82,9 @@ public class DramasActivity extends AppCompatActivity implements DramasAdapter.O
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.contact_us: {
-                String[] TO_EMAILS = {"loveseries251@gmail.com"};
-
-                Intent intent = new Intent(Intent.ACTION_SENDTO);
-                intent.setData(Uri.parse("mailto:"));
-                intent.putExtra(Intent.EXTRA_EMAIL, TO_EMAILS);
-
-                startActivity(Intent.createChooser(intent, "Choose one application"));
+            case R.id.settings:{
+                Intent intent = new Intent(this, SettingsActivity.class);
+                this.startActivity(intent);
             }
         }
         return super.onOptionsItemSelected(item);

@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".EpisodesActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/drama" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/drama" />
 
         <TextView
             android:id="@+id/textView_name"
@@ -28,36 +28,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/textView_name"
+            android:scrollbars="vertical"
+            android:maxLines="5"
             android:layout_marginLeft="5sp"
             android:layout_marginRight="5sp"
             android:text="TextView" />
 
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView_description"
+            android:layout_centerHorizontal="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-6499826538736000/6292131012">
+            </com.google.android.gms.ads.AdView>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_episodes"
-            android:layout_below="@id/textView_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/adView"/>
+            android:layout_below="@id/adView"/>
 
-
-
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-6499826538736000/6292131012">
-    </com.google.android.gms.ads.AdView>
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
 </RelativeLayout>

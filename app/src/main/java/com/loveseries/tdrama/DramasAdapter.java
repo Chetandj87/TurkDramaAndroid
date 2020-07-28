@@ -4,7 +4,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +20,7 @@ import com.squareup.picasso.Picasso;
 public class DramasAdapter extends FirestorePagingAdapter<Drama, DramasAdapter.DramasViewHolder> {
 
     private OnDramaListClick onDramaListClick;
+    DramasActivity dramasActivity = new DramasActivity();
 
     public DramasAdapter(@NonNull FirestorePagingOptions<Drama> options, OnDramaListClick onDramaListClick) {
         super(options);
@@ -26,6 +29,7 @@ public class DramasAdapter extends FirestorePagingAdapter<Drama, DramasAdapter.D
 
     @Override
     protected void onBindViewHolder(@NonNull DramasViewHolder holder, int position, @NonNull Drama model) {
+
         holder.dramaname.setText(model.getTitle());
         if (!model.getImageURL().isEmpty()){
             Picasso.get().load(model.getImageURL()).into(holder.imageView);
@@ -44,14 +48,18 @@ public class DramasAdapter extends FirestorePagingAdapter<Drama, DramasAdapter.D
         super.onLoadingStateChanged(state);
         switch (state){
             case FINISHED:
+//                progressBar.setVisibility(View.GONE);
                 break;
             case LOADING_MORE:
+//                progressBar.setVisibility(View.VISIBLE);
                 break;
             case LOADING_INITIAL:
+//                progressBar.setVisibility(View.VISIBLE);
                 break;
             case ERROR:
                 break;
             case LOADED:
+//                progressBar.setVisibility(View.GONE);
                 break;
         }
     }

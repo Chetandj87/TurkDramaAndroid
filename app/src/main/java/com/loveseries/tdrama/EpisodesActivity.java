@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -66,6 +67,7 @@ public class EpisodesActivity extends AppCompatActivity{
         drama = (Drama) getIntent().getSerializableExtra("drama");
         textView_name = findViewById(R.id.textView_name);
         textView_description = findViewById(R.id.textView_description);
+        textView_description.setMovementMethod(new ScrollingMovementMethod());
         imageView = findViewById(R.id.imageView);
 
         textView_name.setText(drama.getTitle());
@@ -77,7 +79,6 @@ public class EpisodesActivity extends AppCompatActivity{
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         episodeList = new ArrayList<>();
-
 
         CollectionReference notesCollectionRef = db.collection("episodes");
 

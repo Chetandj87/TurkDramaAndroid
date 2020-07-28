@@ -13,10 +13,12 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 
 public class WebActivity extends AppCompatActivity {
 
     WebView webView;
+    ProgressBar progressBar;
 
     @Override
     public void onBackPressed() {
@@ -51,12 +53,17 @@ public class WebActivity extends AppCompatActivity {
         //String url = "<iframe src=\"https://hqq.tv/e/Ry9FSlVBZnBuYURJQitGL3ZudWY2Zz09\" height=\"450\" width=\"720\" webkitAllowFullScreen mozallowfullscreen allowfullscreen frameborder=\"0\" scrolling=\"no\"></iframe>";
 
         webView = (WebView) findViewById(R.id.webServer);
+
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
+
         webView.setWebViewClient(new Browser_Home());
         webView.setWebChromeClient(new ChromeClient());
         WebSettings webViewSettings = webView.getSettings();
         webViewSettings.setJavaScriptEnabled(true);
         webViewSettings.setAllowFileAccess(true);
         webViewSettings.setAppCacheEnabled(true);
+
 
         loadWebSite(url);
     }
@@ -67,6 +74,7 @@ public class WebActivity extends AppCompatActivity {
 
         if(url.startsWith("https")){
             serverURL = "<iframe src=\""+url+"\" height=\"95%\" width=\"100%\" webkitAllowFullScreen mozallowfullscreen allowfullscreen frameborder=\"0\" scrolling=\"no\"></iframe>";
+
         }else {
             serverURL = url;
         }
@@ -88,6 +96,8 @@ public class WebActivity extends AppCompatActivity {
 
         @Override
         public void onPageFinished(WebView view, String url) {
+            progressBar.setVisibility(View.GONE);
+
             super.onPageFinished(view, url);
         }
     }

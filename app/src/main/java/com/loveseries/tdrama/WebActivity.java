@@ -18,30 +18,10 @@ import android.widget.ProgressBar;
 public class WebActivity extends AppCompatActivity {
 
     WebView webView;
-    ProgressBar progressBar;
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        builder.setTitle("Exit");
-        builder.setMessage("Are you sure you want to exit?");
-
-        builder.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        });
-
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-
-        AlertDialog dialog= builder.show();
+        alertOnExit();
     }
 
     @Override
@@ -53,9 +33,6 @@ public class WebActivity extends AppCompatActivity {
         //String url = "<iframe src=\"https://hqq.tv/e/Ry9FSlVBZnBuYURJQitGL3ZudWY2Zz09\" height=\"450\" width=\"720\" webkitAllowFullScreen mozallowfullscreen allowfullscreen frameborder=\"0\" scrolling=\"no\"></iframe>";
 
         webView = (WebView) findViewById(R.id.webServer);
-
-        progressBar = findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.VISIBLE);
 
         webView.setWebViewClient(new Browser_Home());
         webView.setWebChromeClient(new ChromeClient());
@@ -96,7 +73,6 @@ public class WebActivity extends AppCompatActivity {
 
         @Override
         public void onPageFinished(WebView view, String url) {
-            progressBar.setVisibility(View.GONE);
 
             super.onPageFinished(view, url);
         }
@@ -140,5 +116,28 @@ public class WebActivity extends AppCompatActivity {
             ((FrameLayout) getWindow().getDecorView()).addView(this.mCustomView, new FrameLayout.LayoutParams(-1, -1));
             getWindow().getDecorView().setSystemUiVisibility(3846 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         }
+    }
+
+    private void alertOnExit(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Exit");
+        builder.setMessage("Are you sure you want to exit?");
+
+        builder.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        AlertDialog dialog= builder.show();
     }
 }

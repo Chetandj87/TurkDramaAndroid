@@ -6,8 +6,12 @@ import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -15,11 +19,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class DramasActivity extends AppCompatActivity implements DramasAdapter.OnDramaListClick {
 
@@ -31,6 +39,16 @@ public class DramasActivity extends AppCompatActivity implements DramasAdapter.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dramas);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("save",MODE_PRIVATE);
+        boolean pushNotification = sharedPreferences.getBoolean("value",true);
+
+        if(pushNotification==true){
+            //Firebase Notification
+            firebaseNotification();
+        }else {
+            firebaseNotificationUnSub();
+        }
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         mFirestoreList = findViewById(R.id.firestoreList);
@@ -88,5 +106,29 @@ public class DramasActivity extends AppCompatActivity implements DramasAdapter.O
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void firebaseNotification() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel =
+                    new NotificationChannel("Drama","Drama", NotificationManager.IMPORTANCE_DEFAULT);
+
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+
+            FirebaseMessaging.getInstance().subscribeToTopic("general")
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) { }
+                    });
+        }
+    }
+
+    private void firebaseNotificationUnSub(){
+        FirebaseMessaging.getInstance().unsubscribeFromTopic("general")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) { }
+                });
     }
 }

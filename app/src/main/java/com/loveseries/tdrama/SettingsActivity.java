@@ -11,7 +11,12 @@ import android.view.View;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -35,11 +40,21 @@ public class SettingsActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = getSharedPreferences("save",MODE_PRIVATE).edit();
                     editor.putBoolean("value", false);
                     editor.apply();
+                    FirebaseMessaging.getInstance().unsubscribeFromTopic("general")
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) { }
+                            });
                     notificationSwitch.setChecked(false);
                 } else {
                     SharedPreferences.Editor editor = getSharedPreferences("save",MODE_PRIVATE).edit();
                     editor.putBoolean("value", true);
                     editor.apply();
+                    FirebaseMessaging.getInstance().subscribeToTopic("general")
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) { }
+                            });
                     notificationSwitch.setChecked(true);
                 }
             }

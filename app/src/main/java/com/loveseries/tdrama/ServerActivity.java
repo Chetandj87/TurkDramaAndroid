@@ -97,4 +97,12 @@ public class ServerActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        if (mInterstitialAd.isLoaded()){
+            mInterstitialAd.show();
+        }
+        super.onBackPressed();
+    }
 }

@@ -46,15 +46,13 @@ public class DramasActivity extends AppCompatActivity implements DramasAdapter.O
         if(pushNotification==true){
             //Firebase Notification
             firebaseNotification();
-        }else {
-            firebaseNotificationUnSub();
         }
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         mFirestoreList = findViewById(R.id.firestoreList);
 
         //Query
-        Query query = firebaseFirestore.collection("dramas");
+        Query query = firebaseFirestore.collection("dramas").orderBy("title", Query.Direction.ASCENDING);
 
         PagedList.Config config = new PagedList.Config.Builder()
                 .setInitialLoadSizeHint(3)
@@ -82,8 +80,6 @@ public class DramasActivity extends AppCompatActivity implements DramasAdapter.O
         drama.setTitle((String) snapshot.get("title"));
         drama.setDescription((String) snapshot.get("description"));
         drama.setImageURL((String) snapshot.get("imageURL"));
-
-        Drama drama1 = snapshot.toObject(Drama.class);
 
         Intent intent = new Intent(this, EpisodesActivity.class);
         intent.putExtra("drama",drama);
@@ -115,20 +111,6 @@ public class DramasActivity extends AppCompatActivity implements DramasAdapter.O
 
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel);
-
-            FirebaseMessaging.getInstance().subscribeToTopic("general")
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) { }
-                    });
         }
-    }
-
-    private void firebaseNotificationUnSub(){
-        FirebaseMessaging.getInstance().unsubscribeFromTopic("general")
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) { }
-                });
     }
 }

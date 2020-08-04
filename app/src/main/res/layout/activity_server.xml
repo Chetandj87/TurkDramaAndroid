@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,19 +27,19 @@
         ads:adUnitId="ca-app-pub-6499826538736000/1662798471">
     </com.google.android.gms.ads.AdView>
 
-        <Button
-            android:id="@+id/button_server1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Server 1"
-            android:layout_below="@id/adView"/>
+    <Button
+        android:id="@+id/button_server1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/adView"
+        android:text="@string/server1" />
 
-        <Button
-            android:id="@+id/button_server2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Server 2"
-            android:layout_below="@id/button_server1"/>
+    <Button
+        android:id="@+id/button_server2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button_server1"
+        android:text="@string/server2" />
 
 
 </RelativeLayout>

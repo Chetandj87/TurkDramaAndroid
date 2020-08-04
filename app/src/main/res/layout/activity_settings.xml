@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,20 +10,18 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="NOTIFICATION"
-            android:textSize="25dp"
-            android:textStyle="bold"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:text="@string/notification"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
         <Switch
             android:id="@+id/notificationSwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Push Notification"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:layout_marginTop="10dp"
             android:checked="true"
             android:layout_below="@id/textView"
@@ -45,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ABOUT"
-            android:textSize="25dp"
+            android:textSize="25sp"
             android:layout_below="@id/divider1"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
@@ -56,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Contact us"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:layout_below="@id/about"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
@@ -66,7 +63,7 @@
             android:id="@+id/contactMail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:text="loveseries251@gmail.com"
             android:layout_below="@id/contactHeading"
             android:layout_marginLeft="10dp"
@@ -89,14 +86,14 @@
             android:text="Copyright"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:textSize="20dp"/>
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/copyrightText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/copyright"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:text="" />
@@ -114,7 +111,7 @@
             android:id="@+id/version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:text="Version"
@@ -125,7 +122,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/version"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:text="" />
@@ -147,7 +144,7 @@
             android:text="Share This App"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:textSize="20dp"/>
+            android:textSize="20sp"/>
 
         <View
             android:id="@+id/divider4"
@@ -166,7 +163,7 @@
             android:text="Rate Me!"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:textSize="20dp"/>
+            android:textSize="20sp"/>
 
         <View
             android:id="@+id/divider5"

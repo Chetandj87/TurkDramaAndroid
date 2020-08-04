@@ -19,8 +19,8 @@
                 android:id="@+id/textEpisode_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textSize="25dp"/>
+                android:text="@string/episode_number"
+                android:textSize="25sp" />
 
         </LinearLayout>
 

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,6 +9,7 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="220dp"
+            android:contentDescription="@string/drama_image"
             android:scaleType="fitXY"
             android:src="@drawable/drama" />
 
@@ -20,19 +20,19 @@
             android:layout_below="@id/imageView"
             android:layout_marginLeft="5sp"
             android:layout_marginRight="5sp"
-            android:text="TextView"
-            android:textSize="25dp" />
+            android:text="@string/drama_name"
+            android:textSize="25sp" />
 
         <TextView
             android:id="@+id/textView_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/textView_name"
-            android:scrollbars="vertical"
-            android:maxLines="5"
             android:layout_marginLeft="5sp"
             android:layout_marginRight="5sp"
-            android:text="TextView" />
+            android:maxLines="5"
+            android:scrollbars="vertical"
+            android:text="@string/drama_description" />
 
         <com.google.android.gms.ads.AdView
             xmlns:ads="http://schemas.android.com/apk/res-auto"

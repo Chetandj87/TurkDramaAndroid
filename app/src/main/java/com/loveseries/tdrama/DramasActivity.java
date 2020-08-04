@@ -32,7 +32,6 @@ import com.google.firebase.messaging.FirebaseMessaging;
 public class DramasActivity extends AppCompatActivity implements DramasAdapter.OnDramaListClick {
 
     private FirebaseFirestore firebaseFirestore;
-    private RecyclerView mFirestoreList;
     private DramasAdapter adapter;
 
     @Override
@@ -43,13 +42,13 @@ public class DramasActivity extends AppCompatActivity implements DramasAdapter.O
         SharedPreferences sharedPreferences = getSharedPreferences("save",MODE_PRIVATE);
         boolean pushNotification = sharedPreferences.getBoolean("value",true);
 
-        if(pushNotification==true){
+        if(pushNotification){
             //Firebase Notification
             firebaseNotification();
         }
 
         firebaseFirestore = FirebaseFirestore.getInstance();
-        mFirestoreList = findViewById(R.id.firestoreList);
+        RecyclerView dramaRecyclerList = findViewById(R.id.dramaList);
 
         //Query
         Query query = firebaseFirestore.collection("dramas").orderBy("title", Query.Direction.ASCENDING);
@@ -67,9 +66,9 @@ public class DramasActivity extends AppCompatActivity implements DramasAdapter.O
 
         adapter = new DramasAdapter(options, this);
 
-        mFirestoreList.setHasFixedSize(true);
-        mFirestoreList.setLayoutManager(new LinearLayoutManager(this));
-        mFirestoreList.setAdapter(adapter);
+        dramaRecyclerList.setHasFixedSize(true);
+        dramaRecyclerList.setLayoutManager(new LinearLayoutManager(this));
+        dramaRecyclerList.setAdapter(adapter);
     }
 
     @Override
@@ -110,7 +109,9 @@ public class DramasActivity extends AppCompatActivity implements DramasAdapter.O
                     new NotificationChannel("Drama","Drama", NotificationManager.IMPORTANCE_DEFAULT);
 
             NotificationManager manager = getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(channel);
+            if (manager != null) {
+                manager.createNotificationChannel(channel);
+            }
         }
     }
 }

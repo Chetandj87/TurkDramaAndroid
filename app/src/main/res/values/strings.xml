@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">TDrama</string>
     <string name="title_activity_episode">EpisodeActivity</string>
+    <string name="drama_image">Drama Image</string>
+    <string name="drama_name">Drama Name</string>
+    <string name="drama_description">Drama Description</string>
+    <string name="episode_number">Episode Number</string>
+    <string name="notification">NOTIFICATION</string>
+    <string name="server1">Server 1</string>
+    <string name="server2">Server 2</string>
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.

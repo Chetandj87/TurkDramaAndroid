@@ -7,7 +7,7 @@
     tools:context=".DramasActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/firestoreList"
+        android:id="@+id/dramaList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
